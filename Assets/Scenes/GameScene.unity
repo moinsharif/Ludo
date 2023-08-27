@@ -2726,7 +2726,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: NaN, y: 8.3e-44, z: NaN, w: 0}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 0, z: 0, w: 2.6483695e+18}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -12809,14 +12809,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac63148a58fea514cabd8f7d5b704c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 0
-  y: 0
+  adjust: 0
   aminx: 0.242
   aminy: 0.1666111
   amaxx: 0.7577813
   amaxy: 0.8335139
-  apivotx: 0.5
-  apivoty: 0.5
+  portAminx: 0
+  portAminy: 0.25
+  portAmaxx: 1
+  portAmaxy: 0.75
 --- !u!1 &821270292
 GameObject:
   m_ObjectHideFlags: 0
@@ -17027,7 +17028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9283341, y: 0.94100004}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.600006, y: 11.100006}
+  m_AnchoredPosition: {x: 8.599976, y: 11.100006}
   m_SizeDelta: {x: 17, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1098910698
@@ -21773,12 +21774,12 @@ PrefabInstance:
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.8
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.8
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
@@ -21788,12 +21789,12 @@ PrefabInstance:
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.66
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.25
+      value: 2.69
       objectReference: {fileID: 0}
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
@@ -31249,7 +31250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.043551963, y: 0.0012821767}
   m_AnchorMax: {x: 0.956828, y: 0.9091536}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084116355
@@ -31519,7 +31520,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.043551963, y: 0.0012821767}
   m_AnchorMax: {x: 0.956828, y: 0.9091536}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2090996487
@@ -31913,12 +31914,12 @@ PrefabInstance:
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.8
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.8
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
@@ -31928,12 +31929,12 @@ PrefabInstance:
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.25
+      value: 2.69
       objectReference: {fileID: 0}
     - target: {fileID: 8906004470125609412, guid: 4d1588c35bde38546bd93f5a4f2bebf5,
         type: 3}
