@@ -124,6 +124,8 @@ public class PlayerPiece : MonoBehaviour
                     cuttedPlayer.canMove = false;
                     cuttedPlayer.moveNow = false;
                     backToHomeWhenCut_Coroutine = StartCoroutine(letsBackToHome(cuttedPlayer.whatIsPlayerPathPoints, cuttedPlayer.numberOfStepsAlreadyMoved));
+                    Debug.Log("whatIsPlayerPathPoints " + cuttedPlayer.whatIsPlayerPathPoints.ToString());
+                    Debug.Log("numberOfStepsAlreadyMoved " + cuttedPlayer.numberOfStepsAlreadyMoved.ToString());
                 }
             }
 

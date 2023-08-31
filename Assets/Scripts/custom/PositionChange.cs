@@ -9,7 +9,7 @@ public class PositionChange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        positionChange();
     }
 
     // Update is called once per frame

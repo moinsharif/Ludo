@@ -2,31 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class transformChange : MonoBehaviour
+public class PathActive : MonoBehaviour
 {
-    public Vector3 landScale;
-    public Vector3 portScale;
+    public GameObject land, port;
     // Start is called before the first frame update
     void Start()
     {
-        scaleChange();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        scaleChange();
+        checkOriantion();
     }
 
-    private void scaleChange()
+    private void checkOriantion()
     {
         if (CheckOrientation.land)
         {
-            transform.localScale = landScale;
+            land.SetActive(true);
+            port.SetActive(false);
         }
         else
         {
-            transform.localScale = portScale;
+            land.SetActive(false);
+            port.SetActive(true);
         }
     }
 }
