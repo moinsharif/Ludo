@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
+    private bool last;
     public GameObject[] players;
     public GameObject[] panels;
     public GameObject[] timeSection;
@@ -16,6 +17,9 @@ public class BoardManager : MonoBehaviour
     public GameObject music;
     public GameObject notification;
     public GameObject mic;
+    public GameObject diceBoard;
+    public Image[] border;
+    public Vector3 leftPosition, rightPosition, scaleLR, topPosition, downPosition, scaleTD;
     AudioSource audioData;
     // Start is called before the first frame update
     void Start()
@@ -30,13 +34,73 @@ public class BoardManager : MonoBehaviour
         toggleSprite("notification");
         toggleSprite("musicState");
         toggleSprite("mic");
-        soundOnOffCheckDelay();
+        StartCoroutine("soundOnOffCheckDelay");
+        StartCoroutine("activeAll");
+        last = CheckOrientation.land;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (last != CheckOrientation.land)
+        {
+            StartCoroutine("activeAll");
+        }
+        last = CheckOrientation.land;
+            boardPossition();
+            borderLine();
+    }
+
+    private void borderLine()
+    {
+        border[0].enabled = false;
+        border[1].enabled = false;
+        border[2].enabled = false;
+        border[3].enabled = false;
+        border[GameManager.currentPlayer - 1].enabled = true;
+    }
+
+    private void boardPossition()
+    {
+        if (CheckOrientation.land == true)
+        {
+            if (GameManager.currentPlayer == 1 || GameManager.currentPlayer == 2)
+            {
+                diceBoard.transform.localScale = scaleLR;
+                diceBoard.transform.position = leftPosition;
+            }
+            else if (GameManager.currentPlayer == 3 || GameManager.currentPlayer == 4)
+            {
+                diceBoard.transform.localScale = scaleLR;
+                diceBoard.transform.position = rightPosition;
+            }
+        }
+        else
+        {
+            if (GameManager.currentPlayer == 1 || GameManager.currentPlayer == 4)
+            {
+                diceBoard.transform.localScale = scaleTD;
+                diceBoard.transform.position = downPosition;
+            }
+            else if (GameManager.currentPlayer == 2 || GameManager.currentPlayer == 3)
+            {
+                diceBoard.transform.localScale = scaleTD;
+                diceBoard.transform.position = topPosition;
+            }
+        }
+    }
+
+    IEnumerator activeAll()
+    {
+        foreach (GameObject p in panels)
+        {
+            p.SetActive(true);
+        }
+        yield return new WaitForSeconds(1);
+        foreach (GameObject q in panels)
+        {
+            q.SetActive(false);
+        }
     }
 
     IEnumerator soundOnOffCheckDelay()
@@ -154,8 +218,10 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    private void setPlayerImages() {
-        if (panelControl.howManyPlayers == 2) { 
+    private void setPlayerImages()
+    {
+        if (panelControl.howManyPlayers == 2)
+        {
             players[0].SetActive(false);
             players[1].SetActive(true);
             players[2].SetActive(true);

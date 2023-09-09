@@ -33,6 +33,12 @@ public class PlayerPiece : MonoBehaviour
         canMoveAnim.SetActive(false);
     }
 
+    void Update()
+    {
+        //        Debug.Log(cuttedPlayer.ToString());
+        //        Debug.Log(cuttedPlayer.playerPosition.y);
+    }
+
     public void MoveSteps(PathPoint[] pathPointsToMoveOn_)
     {
         moveSteps_Coroutine = StartCoroutine(MoveSteps_Enum(pathPointsToMoveOn_));
@@ -105,16 +111,16 @@ public class PlayerPiece : MonoBehaviour
                 GameManager.gm.AddPathPoint(currentPathPoint);
                 previousPathPoint = currentPathPoint;
 
-                if(currentPathPoint.gameObject.tag == "safeHouse")
+                if (currentPathPoint.gameObject.tag == "safeHouse")
                 {
                     SoundManager.safeHouseAudioSource.Play();
                 }
-                if(numberOfStepsAlreadyMoved == 57)
+                if (numberOfStepsAlreadyMoved == 57)
                 {
                     GameManager.gm.addPlayerToWin();
                     SoundManager.winAudioSource.Play();
                 }
-                if(currentPathPoint.playerPiecesList.Count == 2 && currentPathPoint.playerPiecesList[0].playerName != playerName && currentPathPoint.gameObject.tag != "safeHouse")
+                if (currentPathPoint.playerPiecesList.Count == 2 && currentPathPoint.playerPiecesList[0].playerName != playerName && currentPathPoint.gameObject.tag != "safeHouse")
                 {
                     cuttedPlayer = currentPathPoint.playerPiecesList[0];
                     SoundManager.dismissalAudioSource.Play();
@@ -124,8 +130,6 @@ public class PlayerPiece : MonoBehaviour
                     cuttedPlayer.canMove = false;
                     cuttedPlayer.moveNow = false;
                     backToHomeWhenCut_Coroutine = StartCoroutine(letsBackToHome(cuttedPlayer.whatIsPlayerPathPoints, cuttedPlayer.numberOfStepsAlreadyMoved));
-                    Debug.Log("whatIsPlayerPathPoints " + cuttedPlayer.whatIsPlayerPathPoints.ToString());
-                    Debug.Log("numberOfStepsAlreadyMoved " + cuttedPlayer.numberOfStepsAlreadyMoved.ToString());
                 }
             }
 
@@ -133,7 +137,7 @@ public class PlayerPiece : MonoBehaviour
             {
                 RollingDice.canDiceRoll = true;
             }
-            else if(numberOfStepsAlreadyMoved == 57)
+            else if (numberOfStepsAlreadyMoved == 57)
             {
                 RollingDice.canDiceRoll = true;
             }
@@ -164,15 +168,27 @@ public class PlayerPiece : MonoBehaviour
 
     IEnumerator letsBackToHome(PathPoint[] pathPointsToMoveOn_, int numberOfStepsMoved)
     {
-        for (int i = numberOfStepsMoved-1; i >= 1; i--)
+        for (int i = numberOfStepsMoved - 1; i >= 0; i--)
         {
             cuttedPlayer.transform.position = pathPointsToMoveOn_[i].transform.position;
-            yield return new WaitForSeconds(0.035f);
+            yield return new WaitForSeconds(0.03f);
         }
 
         GameManager.isCutted = false;
         cuttedPlayer.numberOfStepsAlreadyMoved = 0;
-        cuttedPlayer.transform.position = cuttedPlayer.playerPosition;
+        Debug.Log("cuttedPlayer.playerPosition X " + cuttedPlayer.playerPosition.x);
+        Debug.Log("cuttedPlayer.playerPosition Y " + cuttedPlayer.playerPosition.y);
+        Debug.Log("cuttedPlayer.playerPosition Z " + cuttedPlayer.playerPosition.z);
+        if (CheckOrientation.land)
+        {
+            Vector3 pos = new Vector3(cuttedPlayer.playerPosition.x * 2.1f, cuttedPlayer.playerPosition.y * 2.1f, 0f);
+            cuttedPlayer.transform.position = pos;
+        }
+        else
+        {
+            cuttedPlayer.transform.position = cuttedPlayer.playerPosition;
+        }
+
         currentPathPoint.RemovePlayerPiece(currentPathPoint.playerPiecesList[0]);
         cuttedPlayer.transform.localScale = new Vector3(1f, 1f, 1f);
 
@@ -187,7 +203,7 @@ public class PlayerPiece : MonoBehaviour
     public bool isPathPointsAvailableToMoveOn(int numOfStepsToMove_, int numberOfStepsAlreadyMoved_, PathPoint[] pathPointsToMoveOn_)
     {
         int leftNumberOfPathPoints = pathPointsToMoveOn_.Length - numberOfStepsAlreadyMoved_;
-        if(leftNumberOfPathPoints >= numOfStepsToMove_)
+        if (leftNumberOfPathPoints >= numOfStepsToMove_)
         {
             return true;
         }

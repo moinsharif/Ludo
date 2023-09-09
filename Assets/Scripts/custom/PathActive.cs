@@ -8,7 +8,7 @@ public class PathActive : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        checkOriantion();
     }
 
     // Update is called once per frame

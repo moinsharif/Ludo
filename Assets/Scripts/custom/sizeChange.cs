@@ -29,7 +29,7 @@ public class sizeChange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        retio = (float)Screen.height / Screen.width;
+        retio = (float)Screen.height / (float)Screen.width;
 
 //        Screen.autorotateToPortrait = true;
 //        Screen.autorotateToPortraitUpsideDown = true;
@@ -62,6 +62,7 @@ public class sizeChange : MonoBehaviour
     }
 
     private void checkOriantion() {
+//        Debug.Log(transform.gameObject.name + " H: "+ Screen.height +" W: "+ Screen.width +" R="+ retio);
         if (CheckOrientation.land) {
             setLand();
         }

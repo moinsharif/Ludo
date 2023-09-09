@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class panelControl : MonoBehaviour
 {
+    private bool last;
     public GameObject[] panels;
     public Sprite[] gutiImage;
     public GameObject[] guti;
@@ -16,6 +19,9 @@ public class panelControl : MonoBehaviour
     public GameObject music;
     public GameObject notification;
     public static int howManyPlayers;
+    public TMP_Text priceText;
+    public static int priceInt;
+    public Text[] coins;
     AudioSource audioData;
 
     /*
@@ -26,6 +32,7 @@ public class panelControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        priceInt = Convert.ToInt32(priceText.text);
         audioData = GetComponent<AudioSource>();
         if (PlayerPrefs.GetInt("musicState") == 0)
         {
@@ -40,7 +47,34 @@ public class panelControl : MonoBehaviour
         playerPref("notification", 0);
         playerPref("language", 0);
         playerPref("mic", 0);
-        soundOnOffCheckDelay();
+        StartCoroutine("soundOnOffCheckDelay");
+        StartCoroutine("activeAll");
+        last = CheckOrientation.land;
+    }
+
+    public void plusBtn(int amount)
+    {
+        priceInt = priceInt + amount;
+        priceText.text = "" + priceInt;
+        coinTextChange();
+    }
+
+    public void minusBtn(int amount)
+    {
+        if (priceInt > 100)
+        {
+            priceInt = priceInt - amount;
+        }
+        priceText.text = "" + priceInt;
+        coinTextChange();
+    }
+
+    private void coinTextChange()
+    {
+        foreach (Text coinTxt in coins)
+        {
+            coinTxt.text = ""+priceInt;
+        }
     }
 
     IEnumerator soundOnOffCheckDelay()
@@ -59,6 +93,12 @@ public class panelControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (last != CheckOrientation.land)
+        {
+            StartCoroutine("activeAll");
+        }
+        last = CheckOrientation.land;
+
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
@@ -66,7 +106,18 @@ public class panelControl : MonoBehaviour
         }
     }
 
-    public void hideAll()
+    IEnumerator activeAll()
+    {
+        foreach (GameObject p in panels)
+        {
+            p.SetActive(true);
+        }
+        yield return new WaitForSeconds(1);
+        hideAll();
+        activePanelNoSound(0);
+    }
+
+    private void hideAll()
     {
         foreach (GameObject p in panels)
         {
