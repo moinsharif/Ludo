@@ -21,8 +21,8 @@ public class CheckOrientation : MonoBehaviour
     {
         if (Application.isEditor)
         {
-            land = false;
             land = true;
+            land = false;
         }
         else
         {

@@ -176,9 +176,6 @@ public class PlayerPiece : MonoBehaviour
 
         GameManager.isCutted = false;
         cuttedPlayer.numberOfStepsAlreadyMoved = 0;
-        Debug.Log("cuttedPlayer.playerPosition X " + cuttedPlayer.playerPosition.x);
-        Debug.Log("cuttedPlayer.playerPosition Y " + cuttedPlayer.playerPosition.y);
-        Debug.Log("cuttedPlayer.playerPosition Z " + cuttedPlayer.playerPosition.z);
         if (CheckOrientation.land)
         {
             Vector3 pos = new Vector3(cuttedPlayer.playerPosition.x * 2.1f, cuttedPlayer.playerPosition.y * 2.1f, 0f);

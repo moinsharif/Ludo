@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class BoardManager : MonoBehaviour
 {
     private bool last;
+    private int lastPlayer;
+    private bool startTime;
+    private float time;
+    public static bool diceManage;
     public GameObject[] players;
     public GameObject[] panels;
     public GameObject[] timeSection;
@@ -19,6 +23,8 @@ public class BoardManager : MonoBehaviour
     public GameObject mic;
     public GameObject diceBoard;
     public Image[] border;
+    public Image[] photos;
+    public Sprite[] setImages;
     public Vector3 leftPosition, rightPosition, scaleLR, topPosition, downPosition, scaleTD;
     AudioSource audioData;
     // Start is called before the first frame update
@@ -37,6 +43,75 @@ public class BoardManager : MonoBehaviour
         StartCoroutine("soundOnOffCheckDelay");
         StartCoroutine("activeAll");
         last = CheckOrientation.land;
+        activeImages();
+    }
+
+    private void activeImages()
+    {
+        switch (panelControl.howManyPlayers)
+        {
+            case 2:
+                if(panelControl.colorSelect == 0 || panelControl.colorSelect == 1)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[0];
+                    photos[2].GetComponent<Image>().sprite = setImages[1];
+                }else if (panelControl.colorSelect == 3)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[1];
+                    photos[2].GetComponent<Image>().sprite = setImages[0];
+                }
+                break;
+            case 3:
+                if (panelControl.colorSelect == 0 || panelControl.colorSelect == 1)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[0];
+                    photos[1].GetComponent<Image>().sprite = setImages[1];
+                    photos[2].GetComponent<Image>().sprite = setImages[2];
+                }
+                else if (panelControl.colorSelect == 2)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[1];
+                    photos[1].GetComponent<Image>().sprite = setImages[0];
+                    photos[2].GetComponent<Image>().sprite = setImages[2];
+                }
+                else if (panelControl.colorSelect == 3)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[2];
+                    photos[1].GetComponent<Image>().sprite = setImages[1];
+                    photos[2].GetComponent<Image>().sprite = setImages[0];
+                }
+                break;
+            case 4:
+                if (panelControl.colorSelect == 0 || panelControl.colorSelect == 1)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[0];
+                    photos[1].GetComponent<Image>().sprite = setImages[1];
+                    photos[2].GetComponent<Image>().sprite = setImages[2];
+                    photos[3].GetComponent<Image>().sprite = setImages[3];
+                }
+                else if (panelControl.colorSelect == 2)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[1];
+                    photos[1].GetComponent<Image>().sprite = setImages[0];
+                    photos[2].GetComponent<Image>().sprite = setImages[2];
+                    photos[3].GetComponent<Image>().sprite = setImages[3];
+                }
+                else if (panelControl.colorSelect == 3)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[2];
+                    photos[1].GetComponent<Image>().sprite = setImages[1];
+                    photos[2].GetComponent<Image>().sprite = setImages[0];
+                    photos[3].GetComponent<Image>().sprite = setImages[3];
+                }
+                else if (panelControl.colorSelect == 4)
+                {
+                    photos[0].GetComponent<Image>().sprite = setImages[3];
+                    photos[1].GetComponent<Image>().sprite = setImages[1];
+                    photos[2].GetComponent<Image>().sprite = setImages[2];
+                    photos[3].GetComponent<Image>().sprite = setImages[0];
+                }
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -47,8 +122,8 @@ public class BoardManager : MonoBehaviour
             StartCoroutine("activeAll");
         }
         last = CheckOrientation.land;
-            boardPossition();
-            borderLine();
+        boardPossition();
+        borderLine();
     }
 
     private void borderLine()
@@ -58,6 +133,29 @@ public class BoardManager : MonoBehaviour
         border[2].enabled = false;
         border[3].enabled = false;
         border[GameManager.currentPlayer - 1].enabled = true;
+        //      for Image fillAmount
+        if (startTime == false)
+        {
+            startTime = true;
+            time = 15.0f;
+        }
+        if (startTime == true)
+        {
+            border[GameManager.currentPlayer - 1].fillAmount -= 1.0f / time * Time.deltaTime;
+            if (border[GameManager.currentPlayer - 1].fillAmount == 0f)
+            {
+                diceManage = true;
+            }
+        }
+        if (lastPlayer != GameManager.currentPlayer)
+        {
+            startTime = false;
+            border[0].fillAmount = 1.0f;
+            border[1].fillAmount = 1.0f;
+            border[2].fillAmount = 1.0f;
+            border[3].fillAmount = 1.0f;
+            lastPlayer = GameManager.currentPlayer;
+        }
     }
 
     private void boardPossition()

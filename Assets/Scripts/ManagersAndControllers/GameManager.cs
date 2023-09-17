@@ -53,6 +53,16 @@ public class GameManager : MonoBehaviour
         currentPlayer = 1;
     }
 
+    void Update()
+    {
+        if(BoardManager.diceManage == true)
+        {
+//          StartCoroutine(manageDiceCoroutine());
+            manageDice();
+            BoardManager.diceManage = false;
+        }
+    }
+
     private void Start()
     {
         if(panelControl.howManyPlayers < 1 || panelControl.howManyPlayers > 4)

@@ -12,16 +12,18 @@ public class panelControl : MonoBehaviour
     public GameObject[] panels;
     public Sprite[] gutiImage;
     public GameObject[] guti;
+    public GameObject gutiHolder;
     public GameObject[] timeSection;
     public Sprite toggleOn;
     public Sprite toggleOff;
     public GameObject sound;
     public GameObject music;
     public GameObject notification;
-    public static int howManyPlayers;
     public TMP_Text priceText;
-    public static int priceInt;
     public Text[] coins;
+    public static int priceInt;
+    public static int howManyPlayers;
+    public static int colorSelect;
     AudioSource audioData;
 
     /*
@@ -98,7 +100,6 @@ public class panelControl : MonoBehaviour
             StartCoroutine("activeAll");
         }
         last = CheckOrientation.land;
-
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
@@ -153,6 +154,7 @@ public class panelControl : MonoBehaviour
     //Panel 03 Choose Color Change image
     public void colorChoose(int position)
     {
+        colorSelect = position + 1;
         SoundManager.buttonAudioSource.Play();
         for (int srl = 0; srl < guti.Length; srl++)
         {
@@ -171,7 +173,33 @@ public class panelControl : MonoBehaviour
         {
             howManyPlayers = 4;
         }
-
+        switch (howManyPlayers)
+        {
+            case 2:
+                guti[0].SetActive(true);
+                guti[1].SetActive(false);
+                guti[2].SetActive(true);
+                guti[3].SetActive(false);
+                gutiHolder.transform.GetComponent<RectTransform>().anchorMin = new Vector2(0.15f, 0.56f);
+                gutiHolder.transform.GetComponent<RectTransform>().anchorMax = new Vector2(0.85f, 0.76f);
+                break;
+            case 3:
+                guti[0].SetActive(true);
+                guti[1].SetActive(true);
+                guti[2].SetActive(true);
+                guti[3].SetActive(false);
+                gutiHolder.transform.GetComponent<RectTransform>().anchorMin = new Vector2(0.06f, 0.56f);
+                gutiHolder.transform.GetComponent<RectTransform>().anchorMax = new Vector2(0.76f, 0.76f);
+                break;
+            case 4:
+                guti[0].SetActive(true);
+                guti[1].SetActive(true);
+                guti[2].SetActive(true);
+                guti[3].SetActive(true);
+                gutiHolder.transform.GetComponent<RectTransform>().anchorMin = new Vector2(0.15f, 0.56f);
+                gutiHolder.transform.GetComponent<RectTransform>().anchorMax = new Vector2(0.85f, 0.76f);
+                break;
+        }
     }
 
     public void loadBoard()

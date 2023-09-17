@@ -35,44 +35,7 @@ public class RollingDice : MonoBehaviour
             }
             else
             {
-                if (GameManager.currentPlayer == 1)
-                {
-                    int diceRollNumber;
-                    diceRollNumber = Random.Range(0, 99);
-                    if(diceRollNumber > 50)
-                    {
-                        Debug.Log("Number is: " + diceRollNumber + "So, con 1");
-                        numberGot = Random.Range(0, 6);
-                    }
-                    else
-                    {
-                        Debug.Log("Number is: " + diceRollNumber + "So, con 2");
-                        numberGot = Random.Range(4, 6);
-                    }
-                    
-                    /*switch (diceRollNumber)
-                    {
-                        case 0:
-                            numberGot = Random.Range(0, 6);
-                            break;
-
-                        case 1:
-                            numberGot = Random.Range(3, 6);
-                            break;
-
-                        case 2:
-                            numberGot = Random.Range(5, 6);
-                            break;
-
-                        default:
-                            numberGot = Random.Range(0, 6);
-                            break;
-                    }*/
-                }
-                else
-                {
-                    numberGot = Random.Range(0, 6);
-                }
+                numberGot = Random.Range(0, 6);
             }
 
             //numberedSpriteHolder.sprite = numberedSprites[numberGot];
