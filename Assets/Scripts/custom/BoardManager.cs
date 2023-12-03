@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
+    public static bool startTime;
+    public static bool diceManage;
+    public static bool diceManage2;
     private bool last;
     private int lastPlayer;
-    private bool startTime;
     private float time;
-    public static bool diceManage;
     public GameObject[] players;
     public GameObject[] panels;
     public GameObject[] timeSection;
@@ -51,11 +52,12 @@ public class BoardManager : MonoBehaviour
         switch (panelControl.howManyPlayers)
         {
             case 2:
-                if(panelControl.colorSelect == 0 || panelControl.colorSelect == 1)
+                if (panelControl.colorSelect == 0 || panelControl.colorSelect == 1)
                 {
                     photos[0].GetComponent<Image>().sprite = setImages[0];
                     photos[2].GetComponent<Image>().sprite = setImages[1];
-                }else if (panelControl.colorSelect == 3)
+                }
+                else if (panelControl.colorSelect == 3)
                 {
                     photos[0].GetComponent<Image>().sprite = setImages[1];
                     photos[2].GetComponent<Image>().sprite = setImages[0];
@@ -137,7 +139,8 @@ public class BoardManager : MonoBehaviour
         if (startTime == false)
         {
             startTime = true;
-            time = 15.0f;
+            time = 10.0f;
+            border[GameManager.currentPlayer - 1].fillAmount = 1f;
         }
         if (startTime == true)
         {
@@ -145,6 +148,8 @@ public class BoardManager : MonoBehaviour
             if (border[GameManager.currentPlayer - 1].fillAmount == 0f)
             {
                 diceManage = true;
+                diceManage2 = true;
+                GameManager.repeatedSix = 0;
             }
         }
         if (lastPlayer != GameManager.currentPlayer)

@@ -35,8 +35,15 @@ public class PlayerPiece : MonoBehaviour
 
     void Update()
     {
-        //        Debug.Log(cuttedPlayer.ToString());
-        //        Debug.Log(cuttedPlayer.playerPosition.y);
+        if (BoardManager.diceManage2 == true)
+        {
+            BoardManager.diceManage2 = false;
+            GameObject[] canMoveAnimDisable = GameObject.FindGameObjectsWithTag("canMoveAnim");
+            foreach (GameObject letsdisable in canMoveAnimDisable)
+            {
+                letsdisable.SetActive(false);
+            }
+        }
     }
 
     public void MoveSteps(PathPoint[] pathPointsToMoveOn_)
@@ -46,6 +53,7 @@ public class PlayerPiece : MonoBehaviour
 
     public void MakePlayerReadyToMove(PathPoint[] pathPointsToMoveOn_)
     {
+        BoardManager.startTime = false; // Custom Script for restart time countdown in Guti Start
         isReady = true;
         RollingDice.canDiceRoll = true;
         animator.enabled = false;
@@ -72,6 +80,7 @@ public class PlayerPiece : MonoBehaviour
 
     IEnumerator MoveSteps_Enum(PathPoint[] pathPointsToMoveOn_)
     {
+        BoardManager.startTime = false; // Custom Script for restart time countdown in Guti Running
         yield return new WaitForSeconds(0.05f);
         int numOfStepsToMove = GameManager.gm.numOfStepsToMove;
 
@@ -92,7 +101,7 @@ public class PlayerPiece : MonoBehaviour
             {
                 if (isPathPointsAvailableToMoveOn(numOfStepsToMove, numberOfStepsAlreadyMoved, pathPointsToMoveOn_))
                 {
-                    yield return new WaitForSeconds(0.19f);
+                    yield return new WaitForSeconds(0.1f);
                     animator.enabled = true;
                     animator.SetTrigger("playerAnim");
                     SoundManager.playerAudioSource.Play();

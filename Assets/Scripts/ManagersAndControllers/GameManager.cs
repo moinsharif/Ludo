@@ -57,9 +57,9 @@ public class GameManager : MonoBehaviour
     {
         if(BoardManager.diceManage == true)
         {
-//          StartCoroutine(manageDiceCoroutine());
-            manageDice();
             BoardManager.diceManage = false;
+            manageDice();
+            RollingDice.canDiceRoll = true;
         }
     }
 
