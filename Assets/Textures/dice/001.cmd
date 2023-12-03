@@ -1,0 +1,18 @@
+del "diceAnim (1).png"
+del "diceAnim (2).png"
+del "diceAnim (3).png"
+del "diceAnim (4).png"
+del "diceAnim (5).png"
+del "diceAnim (6).png"
+del "diceAnim (7).png"
+del "diceAnim (8).png"
+
+ren "0001.png" "diceAnim (1).png"
+ren "0004.png" "diceAnim (2).png"
+ren "0007.png" "diceAnim (3).png"
+ren "0011.png" "diceAnim (4).png"
+ren "0014.png" "diceAnim (5).png"
+ren "0018.png" "diceAnim (6).png"
+ren "0021.png" "diceAnim (7).png"
+ren "0025.png" "diceAnim (8).png"
+cmd
